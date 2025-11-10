@@ -52,6 +52,8 @@ urlpatterns = [
     path("api/owner-category/", include("apps.owner.urls.category")),
     path("api/owner-menu-items/", include("apps.owner.urls.menu_items")),
     path("api/owner-menu-item-ingredients/", include("apps.owner.urls.menu_item_ingredients")),
+
+    path('api/waiters/', include('apps.dashboard.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

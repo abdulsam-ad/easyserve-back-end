@@ -3,9 +3,16 @@ from io import BytesIO
 from django.core.files import File
 from django.db import models
 from .restaurants import Restaurant
-from  apps import userprofile
 
 from coresite.mixin import AbstractTimeStampModel
+
+
+
+TABLE_STATE = (
+    ("OCCUPIED", "Table Occupied"),
+    ("SERVED", "Order Served"),
+    ("EMPTY", "Table Empty"),
+)
 
 
 class Table(AbstractTimeStampModel):
@@ -16,6 +23,10 @@ class Table(AbstractTimeStampModel):
         Restaurant, on_delete=models.CASCADE, related_name="tables"
     )
     table_number = models.PositiveIntegerField()
+    table_state = models.CharField(
+        max_length=20, choices=TABLE_STATE, default="EMPTY"
+    )
+    customer_count = models.PositiveIntegerField(default=0)
     waiter = models.ForeignKey(
         "userprofile.UserProfile",
         on_delete=models.SET_NULL,
