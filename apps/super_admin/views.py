@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from apps.userprofile.permissions import IsSuperAdmin
+from utils.permissions import IsSuperAdmin
 
 
 class OverviewMetricsAPIView(APIView):

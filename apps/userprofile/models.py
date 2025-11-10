@@ -13,6 +13,7 @@ class UserProfile(AbstractTimeStampModel):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images', blank=True, null=True)
+    selected_restaurant = models.PositiveIntegerField(blank=True, null=True,)
     restaurant = models.ForeignKey(
         'restaurants.Restaurant',
         on_delete=models.CASCADE,
@@ -26,3 +27,15 @@ class UserProfile(AbstractTimeStampModel):
     class Meta:
         verbose_name = 'User Profile'
         verbose_name_plural = 'User Profiles'
+
+class Notification(AbstractTimeStampModel):
+    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="notifications"
+    )
+    message = models.CharField(max_length=255)
+    read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.profile.user.username}: {self.message[:20]}"

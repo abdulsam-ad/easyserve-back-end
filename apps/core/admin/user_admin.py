@@ -14,8 +14,8 @@ class ForgetPasswordAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'email', 'username', 'is_staff', 'is_active')
-    list_display_links = ('id', 'email', 'username')
+    list_display = ('id', 'email', 'username', 'user_type', 'is_staff', 'is_active')
+    list_display_links = ('id', 'email', 'username', 'user_type')
     search_fields = ('email', 'username')
     list_filter = ('is_staff', 'is_active')
     list_per_page = 25

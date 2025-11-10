@@ -48,6 +48,11 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path("api/superadmin/", include("apps.super_admin.urls")),
+    path("api/owner-menus/", include("apps.owner.urls.menus")),
+    path("api/owner-category/", include("apps.owner.urls.category")),
+    path("api/owner-menu-items/", include("apps.owner.urls.menu_items")),
+    path("api/owner-menu-item-ingredients/", include("apps.owner.urls.menu_item_ingredients")),
 ]
+
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

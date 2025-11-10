@@ -1,1 +1,2 @@
 from .abstracttimestemp_model import AbstractTimeStampModel
+from .abstracttimestemp_model import AbstractCreateTimeStampModel

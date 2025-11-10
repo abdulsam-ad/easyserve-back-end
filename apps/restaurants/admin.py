@@ -15,7 +15,7 @@ from .models import (
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'phone_number', 'email')
+    list_display = ('id', 'name', 'address', 'phone_number', 'email')
     search_fields = ('name', 'address', 'phone_number', 'email')
     ordering = ('name',)
 
@@ -28,14 +28,14 @@ class RestaurantImageAdmin(admin.ModelAdmin):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ('name', 'restaurant')
+    list_display = ('id', 'name', 'restaurant')
     search_fields = ('name', 'restaurant__name')
     list_filter = ('restaurant',)
     ordering = ('restaurant', 'name')
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'menu', 'price')
+    list_display = ('id', 'name', 'menu', 'price')
     list_filter = ('menu',)
     ordering = ('menu', 'name')
 

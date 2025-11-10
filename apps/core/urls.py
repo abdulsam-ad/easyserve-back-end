@@ -12,7 +12,6 @@ from apps.core.views import (
     CustomTokenObtainPairView,
 )
 from rest_framework_simplejwt.views import (
-    # TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )

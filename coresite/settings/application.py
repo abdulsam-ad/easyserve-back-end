@@ -13,6 +13,7 @@ CUSTOM_APPLICATIONS = [
     'apps.userprofile',
     "apps.restaurants",
     "apps.super_admin",
+    'apps.owner'
 
 ]
 

@@ -1,3 +1,4 @@
+from .restaurants import *
 from .menus import *
 from .tables import *
 from .ai import *

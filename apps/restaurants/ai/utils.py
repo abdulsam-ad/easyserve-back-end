@@ -17,7 +17,7 @@ def get_analyzer_base_dir() -> Path:
         if p.exists():
             return p
 
-    # Compute from this file location: apps/restaurants/ai/utils.py -> project root
+    # Compute from this file location: apps/restaurants/ai/notifications.py -> project root
     project_root = Path(__file__).resolve().parents[3]  # .../Resturent backend
     # Sibling folder assumed to be alongside "Resturent backend"
     sibling = project_root.parent / "Restaurant analyzer"

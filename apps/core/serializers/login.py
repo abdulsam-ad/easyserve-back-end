@@ -18,11 +18,4 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     @staticmethod
     def get_user_type(user):
-        if user.is_superuser:
-            return "superuser"
-        elif hasattr(user, "restaurant_owner"):
-            return "restaurant_owner"
-        elif hasattr(user, "waiter"):
-            return "waiter"
-        else:
-            return "customer"
+        return user.user_type

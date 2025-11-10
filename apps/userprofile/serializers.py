@@ -1,6 +1,6 @@
 from django.db import transaction, IntegrityError
 from rest_framework import serializers
-from .models import UserProfile, User
+from .models import UserProfile, User, Notification
 from ..restaurants.models import Restaurant
 
 
@@ -55,7 +55,7 @@ class UserProfileWriteSerializer(serializers.ModelSerializer):
         fields = [
             "id", "first_name", "last_name", "phone", "bio", "image",
             "email", "username", "password", "user_type",
-            'restaurant', 'owned_restaurants',
+            'restaurant', 'owned_restaurants', 'selected_restaurant',
         ]
 
     def create(self, validated_data):
@@ -135,3 +135,22 @@ class UserProfileWriteSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ['id', 'message', 'read', 'created_at']
+
+    def update(self, instance, validated_data):
+        read = validated_data.pop('read', None)
+        if read:
+            instance.read = read
+            instance.save()
+
+        return instance
+
+class SelectedRestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['selected_restaurant']
+        read_only_fields = []
