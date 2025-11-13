@@ -3,7 +3,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.dashboard.serializers import AssignedTableSerializer, CurrentOrderSerializer
+from apps.dashboard.serializers import (
+    AssignedTableSerializer,
+    CurrentOrderSerializer,
+    CustomerReviewSerializer
+)
 
 
 class MyAssignedTablesView(APIView):
@@ -23,4 +27,14 @@ class CurrentOrdersView(APIView):
         # Logic to retrieve current orders for the authenticated user
         current_orders = request.user.profile.waiter_orders
         serializer = CurrentOrderSerializer(current_orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CustomerReviews(APIView):
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+
+        reviews = request.user.profile.waiter_reviews
+        serializer = CustomerReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

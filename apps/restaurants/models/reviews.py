@@ -15,6 +15,14 @@ class Review(AbstractTimeStampModel):
         on_delete=models.CASCADE,
         related_name='reviews'
     )
+    waiter = models.ForeignKey(
+        'userprofile.UserProfile',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='waiter_reviews',
+        help_text='Assign waiter if dine-in service was provided.',
+    )
     rate = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
