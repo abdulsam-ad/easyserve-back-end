@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from apps.dashboard.serializers import (
     AssignedTableSerializer,
     CurrentOrderSerializer,
-    CustomerReviewSerializer
+    CustomerReviewSerializer, AddReviewSerializer
 )
 
 
@@ -38,3 +38,13 @@ class CustomerReviews(APIView):
         reviews = request.user.profile.waiter_reviews
         serializer = CustomerReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class AddCustomerReview(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = AddReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            # serializer.save(reviewer=request.user.profile)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

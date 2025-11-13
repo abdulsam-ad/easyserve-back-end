@@ -64,3 +64,14 @@ class CustomerReviewSerializer(serializers.ModelSerializer):
 
     def get_table_number(self, obj):
         return obj.order.table.table_number if obj.order.table else None
+
+class AddReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = [
+            "order",
+            "user",
+            "waiter",
+            "rate",
+            "comment",
+        ]
