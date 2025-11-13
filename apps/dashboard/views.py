@@ -2,6 +2,8 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from apps.restaurants.models import Orders
+from apps.dashboard.serializers import ChangeOrderStatusSerializer
 
 from apps.dashboard.serializers import (
     AssignedTableSerializer,
@@ -29,6 +31,22 @@ class CurrentOrdersView(APIView):
         serializer = CurrentOrderSerializer(current_orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class ChangeOrderStatusView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, order_id):
+
+        try:
+            order = Orders.objects.get(id=order_id)
+        except Orders.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ChangeOrderStatusSerializer(order, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class CustomerReviews(APIView):
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
@@ -46,5 +64,7 @@ class AddCustomerReview(APIView):
         serializer = AddReviewSerializer(data=request.data)
         if serializer.is_valid():
             # serializer.save(reviewer=request.user.profile)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
