@@ -51,7 +51,7 @@ packaging==25.0
 pandas==2.3.3
 pandas-stubs==2.3.3.251201
 pillow==12.0.0
-platformdirs==4.5.0
+platformdirs==4.5.1
 psycopg2-binary==2.9.11
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
@@ -72,7 +72,7 @@ reportlab==4.4.5
 requests==2.32.5
 rpds-py==0.30.0
 scikit-learn==1.7.2
-#scikit-surprise==1.1.4
+scikit-surprise==1.1.4
 scipy==1.15.3
 service-identity==24.2.0
 six==1.17.0
@@ -88,7 +88,7 @@ types-pytz==2025.2.0.20251108
 typing_extensions==4.15.0
 tzdata==2025.2
 uritemplate==4.2.0
-urllib3==2.5.0
+urllib3==2.6.0
 wget==3.2
 wrapt==2.0.1
 zope.interface==8.1.1
