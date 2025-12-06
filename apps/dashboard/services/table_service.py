@@ -51,8 +51,8 @@ class TableService:
                         if hasattr(order, "review") and order.review else None
                     ),
                 })
-            else:
-                table_info["status"] = table.table_state
+            # else:
+            #     table_info["status"] = table.table_state
 
             tables_data.append(table_info)
 
