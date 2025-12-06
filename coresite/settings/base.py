@@ -9,7 +9,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 DOMAIN = env("DOMAIN")
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 ]
 
 ASGI_APPLICATION = "coresite.asgi.application"
-# WSGI_APPLICATION = 'coresite.wsgi.application'
+WSGI_APPLICATION = 'coresite.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -64,19 +64,21 @@ STARTING_YEAR = env("COMPANY_STARTING_YEAR")
 FROM_EMAIL = env("EMAIL_FROM")
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REACT_DOMAIN = env("REACT_DOMAIN")
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],  # or your redis host:port
-        },
-    },
-}
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [env("REDIS_URL")],
+#         },
+#     },
+# }
+
+# REDIS_URL=redis://default:<password>@<host>:<port>
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
@@ -86,4 +88,11 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+]
+CSRF_TRUSTED_ORIGINS += [
+    "https://*.koyeb.app",
+    f"https://{DOMAIN}",
+]
+CORS_ALLOWED_ORIGINS += [
+    f"https://{DOMAIN}",
 ]
