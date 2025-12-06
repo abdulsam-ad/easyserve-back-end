@@ -1,4 +1,5 @@
 DJANGO_APPLICATIONS = [
+    'daphne',
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.sessions',
