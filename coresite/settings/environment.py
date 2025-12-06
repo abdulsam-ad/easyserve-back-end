@@ -7,11 +7,12 @@ from django.core.exceptions import ImproperlyConfigured
 env = environ.Env()
 environ.Env.read_env()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
-
+try:
+    environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
+except FileNotFoundError:
+    pass  # No .env, probably running in cloud environment
 
 def env_to_enum(enum_cls, value):
     for x in enum_cls:

@@ -14,7 +14,7 @@ DATABASES = {
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('PASSWORD'),
         'HOST': env('HOST'),
-        'PORT': env('PORT'),
+        'PORT': env('DB_PORT'),
         'ATOMIC_REQUESTS': True,
         'OPTIONS': {
             'sslmode': env('SSL_MODE', default='require'),
