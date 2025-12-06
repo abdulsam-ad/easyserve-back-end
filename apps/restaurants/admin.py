@@ -67,14 +67,14 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('user', 'order', 'rate', 'created_at')
-    search_fields = ('user__first_name', 'user__last_name', 'order__user__user_type')
+    list_display = ('created_by', 'order', 'rate', 'created_at')
+    search_fields = ('created_by', 'order__user__user_type')
     list_filter = ('rate', 'created_at')
     ordering = ('-created_at',)
 
 @admin.register(Table)
 class TableAdmin(admin.ModelAdmin):
-    list_display = ('id', 'restaurant', 'table_number', 'waiter', 'created_at')
-    search_fields = ('restaurant__name', 'table_number', 'waiter__user__username')
+    list_display = ('table_name', 'table_state', 'restaurant', 'assigned_waiter', 'created_at')
+    search_fields = ('restaurant__name', 'table_number', 'assigned_waiter__user__username')
     list_filter = ('restaurant', 'created_at')
     ordering = ('restaurant', 'table_number')

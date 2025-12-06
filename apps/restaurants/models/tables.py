@@ -7,13 +7,18 @@ from .restaurants import Restaurant
 from coresite.mixin import AbstractTimeStampModel
 
 
-
 TABLE_STATE = (
-    ("OCCUPIED", "Table Occupied"),
-    ("SERVED", "Order Served"),
-    ("EMPTY", "Table Empty"),
+    ("EMPTY", "Empty"),                     # No customers, clean
+    ("RESERVED", "Reserved"),               # Booked but not yet seated
+    ("OCCUPIED", "Occupied"),               # Customers seated
+    ("ORDER_PLACED", "Order Placed"),       # Order taken but not yet preparing
+    ("PREPARING", "Preparing Order"),       # Kitchen cooking
+    ("READY", "Ready to Serve"),            # Food ready for service
+    ("SERVED", "Served"),                   # Food delivered
+    ("PAYMENT_PENDING", "Awaiting Payment"),# Customer finished meal
+    ("CLEANING", "Cleaning"),               # Table dirty, being cleaned
+    ("UNAVAILABLE", "Unavailable"),         # Broken / maintenance
 )
-
 
 class Table(AbstractTimeStampModel):
     """
@@ -27,7 +32,7 @@ class Table(AbstractTimeStampModel):
         max_length=20, choices=TABLE_STATE, default="EMPTY"
     )
     customer_count = models.PositiveIntegerField(default=0)
-    waiter = models.ForeignKey(
+    assigned_waiter = models.ForeignKey(
         "userprofile.UserProfile",
         on_delete=models.SET_NULL,
         null=True, blank=True,
@@ -38,8 +43,14 @@ class Table(AbstractTimeStampModel):
     class Meta:
         unique_together = ("restaurant", "table_number")  # Each table number must be unique per restaurant
 
+    # def __str__(self):
+    #     return f"Table {self.table_number} - {self.restaurant.name}"
     def __str__(self):
-        return f"Table {self.table_number} - {self.restaurant.name}"
+        return self.table_name
+
+    @property
+    def table_name(self):
+        return f"Table #{self.table_number}"
 
     def save(self, *args, **kwargs):
         """
@@ -47,8 +58,8 @@ class Table(AbstractTimeStampModel):
         """
         if not self.qr_code:
             qr_data = f"restaurant={self.restaurant.id}&table={self.table_number}"
-            if self.waiter:
-                qr_data += f"&waiter={self.waiter.id}"
+            if self.assigned_waiter:
+                qr_data += f"&waiter={self.assigned_waiter.id}"
 
             qr = qrcode.make(qr_data)
             buffer = BytesIO()

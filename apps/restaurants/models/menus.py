@@ -24,7 +24,8 @@ class Menu(AbstractTimeStampModel):
         ]
 
     def __str__(self):
-        return f"{self.name} - {self.restaurant.name}"
+        # return f"{self.name} - {self.restaurant.name}"
+        return self.name
 
 class MenuItem(AbstractTimeStampModel):
     """

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     *THIRD_PARTY_APPLICATIONS,
 ]
 
-WSGI_APPLICATION = 'coresite.wsgi.application'
+ASGI_APPLICATION = "coresite.asgi.application"
+# WSGI_APPLICATION = 'coresite.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -67,3 +68,22 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REACT_DOMAIN = env("REACT_DOMAIN")
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],  # or your redis host:port
+        },
+    },
+}
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]

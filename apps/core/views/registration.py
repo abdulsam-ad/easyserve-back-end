@@ -63,7 +63,8 @@ class RegistrationView(APIView):
         key = {
             'username': instance.username,
             'otp': None,
-            'button': react_domain + '/api/user/account-activation/' + secret_key,
+            # 'button': react_domain + '/api/user/account-activation/' + secret_key,
+            'button': react_domain + '/auth/account-activation/' + secret_key,
             'year': date.today().year
         }
 

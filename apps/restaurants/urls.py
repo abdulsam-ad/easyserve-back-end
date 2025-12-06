@@ -28,9 +28,6 @@ router = DefaultRouter()
 router.register(r'tables', TableViewSet, basename='table')
 router.register(r'reviews', ReviewViewSet, basename='reviews')
 router.register(r'restaurants', RestaurantViewSet, basename='restaurant')
-# router.register(r'category', CategoryViewSet, basename='category')
-# router.register(r'menu-items', MenuItemViewSet, basename='menu-items')
-# router.register(r'menu-item-ingredients', MenuItemIngredientViewSet, basename='menu-items-ingredients')
 
 urlpatterns = [
     path('', include(router.urls)),

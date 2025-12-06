@@ -5,6 +5,7 @@ DJANGO_APPLICATIONS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
+    "channels",
 
 ]
 

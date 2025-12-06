@@ -5,16 +5,20 @@ from django.db import models
 
 
 class Review(AbstractTimeStampModel):
-    order = models.ForeignKey(
+    order = models.OneToOneField(
         'restaurants.Orders',
         on_delete=models.CASCADE,
-        related_name='reviews'
+        related_name='review'
     )
+    
     user = models.ForeignKey(
         'userprofile.UserProfile',
-        on_delete=models.CASCADE,
-        related_name='reviews'
+        on_delete=models.SET_NULL,
+        related_name='customer_reviews',
+        null=True,
+        blank=True,
     )
+
     waiter = models.ForeignKey(
         'userprofile.UserProfile',
         on_delete=models.SET_NULL,
@@ -23,6 +27,9 @@ class Review(AbstractTimeStampModel):
         related_name='waiter_reviews',
         help_text='Assign waiter if dine-in service was provided.',
     )
+    
+    created_by = models.CharField(max_length=20, choices=[("customer","Customer"),("waiter","Waiter")])
+    
     rate = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )

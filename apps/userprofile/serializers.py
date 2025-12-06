@@ -16,11 +16,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(read_only=True, required=False)
     restaurant = serializers.SerializerMethodField()
     owned_restaurants = serializers.SerializerMethodField()
+    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = UserProfile
         fields = '__all__'
         read_only_fields = ('user', 'created_at', 'updated_at')
+
+    def get_image_url(self, obj):
+        request = self.context.get("request")
+        if obj.image:
+            return request.build_absolute_uri(obj.image.url)
+        return request.build_absolute_uri("/media/profiles/default_profile.png")
 
     def get_restaurant(self, obj):
         if obj.user.user_type == 'waiter' and obj.restaurant:

@@ -10,6 +10,8 @@ class Category(AbstractTimeStampModel):
         "restaurants.Restaurant",
         related_name='categories',
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     description = models.TextField(blank=True, null=True)
