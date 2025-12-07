@@ -9,7 +9,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 SECRET_KEY = env("SECRET_KEY")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 DOMAIN = env("DOMAIN")
@@ -69,16 +69,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REACT_DOMAIN = env("REACT_DOMAIN")
 
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [env("REDIS_URL")],
-#         },
-#     },
-# }
-
-# REDIS_URL=redis://default:<password>@<host>:<port>
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [env("REDIS_URL")],
+        },
+    },
+}
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",

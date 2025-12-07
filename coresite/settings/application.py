@@ -1,10 +1,12 @@
 DJANGO_APPLICATIONS = [
+    'daphne',
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
+    'channels',
 
 ]
 
